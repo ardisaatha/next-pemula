@@ -11,7 +11,7 @@ export default function AdminPanelLayout({
   return (
     <div className="grid grid-cols-5">
       <div className="w-full">
-      <Sidebar />
+      {/* <Sidebar /> */}
       </div>
         
       <div
