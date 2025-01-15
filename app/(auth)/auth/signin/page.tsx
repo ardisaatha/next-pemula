@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 export default function SignIn() {
   const [username, setUsername] = useState("");
@@ -15,7 +15,6 @@ export default function SignIn() {
       callbackUrl: "/", // Redirect here on success
     });
 
-    console.log("frontend================", result);
     if (!result?.ok) {
       alert("Invalid credentials. Please try again.");
     }
