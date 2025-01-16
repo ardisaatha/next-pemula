@@ -9,6 +9,8 @@ declare module "next-auth" {
       user_name: string;
       payor_code: string;
       access_level: string;
+      access_token: string;
+      refresh_token: string;
     } & DefaultSession["user"];
   }
 
@@ -19,6 +21,8 @@ declare module "next-auth" {
       user_name: string;
       payor_code: string;
       access_level: string;
+      access_token: string;
+      refresh_token: string;
     };
   }
 }
@@ -29,5 +33,7 @@ declare module "next-auth/jwt" {
     user_name: string;
     payor_code: string;
     access_level: string;
+    access_token: string;
+    refresh_token: string;
   }
 }

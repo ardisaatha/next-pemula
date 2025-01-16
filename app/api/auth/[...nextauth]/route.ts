@@ -22,17 +22,14 @@ export const authOptions: NextAuthOptions = {
           }
 
           // Call your custom API for authentication
-          const response = await fetch(
-            "https://apim.admedika.co.id/dev/auth-service/login",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                username: credentials.username.trim(),
-                password: credentials.password.trim(),
-              }),
-            }
-          );
+          const response = await fetch("http://localhost:8080/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              username: credentials.username,
+              password: credentials.password,
+            }),
+          });
 
           const data = await response.json();
 
@@ -56,18 +53,20 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         // Add user-specific data to the token
+        console.log(user);
+
         token.user_code = user.data.user_code?.trim() || "";
         token.user_name = user.data.user_name?.trim() || "";
         token.payor_code = user.data.payor_code?.trim() || "";
         token.access_level = user.data.access_level?.trim() || "";
+        token.access_token = user.data.access_token?.trim() || "";
+        token.refresh_token = user.data.refresh_token?.trim() || "";
       }
-      console.log("token & user", token, user);
 
       return token;
     },
     async session({ session, token }) {
       // Add token data to the session
-      console.log("token", token, session);
 
       session.user = {
         ...session.user,
@@ -75,6 +74,8 @@ export const authOptions: NextAuthOptions = {
         user_name: token.user_name,
         payor_code: token.payor_code,
         access_level: token.access_level,
+        access_token: token.access_token,
+        refresh_token: token.refresh_token,
       };
       return session;
     },
